@@ -1,0 +1,10 @@
+{
+  "exclude": ["node_modules"],
+  "extends": "@ppe/tsconfig/vite.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": "./src"
+  },
+  "include": ["src"]
+}

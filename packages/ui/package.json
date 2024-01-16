@@ -1,0 +1,49 @@
+{
+  "name": "@ppe/ui",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "coverage": "vitest run --coverage",
+    "extract-messages": "i18next-scanner --config=../../scripts/i18next-scanner.config.js"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.50.4",
+    "@types/react-big-calendar": "^0.38.2",
+    "@types/react-calendar": "^3.5.3",
+    "@ppe/eslint-config": "*",
+    "@ppe/tsconfig": "*"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/lab": "^5.0.0-alpha.98",
+    "@mui/material": "^5.10.2",
+    "@ppe/icons": "*",
+    "material-react-table": "^1.1.1",
+    "react-big-calendar": "1.8.2",
+    "react-calendar": "^4.6.0",
+    "react-cool-onclickoutside": "^1.7.0",
+    "react-google-map-picker": "^1.2.3",
+    "react-spinners": "^0.13.5",
+    "react-toastify": "^9.0.8",
+    "use-places-autocomplete": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@ppe/translation": "*",
+    "react-router-dom": "^6.4.1"
+  }
+}

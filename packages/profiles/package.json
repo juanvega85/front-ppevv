@@ -1,0 +1,41 @@
+{
+  "name": "@ppe/profiles",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf storybook-static && rm -rf coverage",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch --passWithNoTests",
+    "coverage": "vitest run --coverage",
+    "extract-messages": "i18next-scanner --config=../../scripts/i18next-scanner.config.js"
+  },
+  "devDependencies": {
+    "@types/react-beautiful-dnd": "^13.1.2",
+    "@ppe/eslint-config": "*",
+    "@ppe/tsconfig": "*"
+  },
+  "dependencies": {
+    "@ppe/common": "*",
+    "@ppe/icons": "*",
+    "@ppe/networking": "*",
+    "@ppe/teams": "*",
+    "@ppe/ui": "*",
+    "react-beautiful-dnd": "^13.1.1"
+  },
+  "peerDependencies": {
+    "@ppe/authentication": "*",
+    "@ppe/data-provider": "*",
+    "@ppe/translation": "*"
+  }
+}
