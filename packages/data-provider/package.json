@@ -1,0 +1,29 @@
+{
+  "name": "@ppe/data-provider",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch --passWithNoTests",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@ppe/eslint-config": "*",
+    "@ppe/tsconfig": "*"
+  },
+  "dependencies": {
+    "react-query": "^3.39.2"
+  }
+}

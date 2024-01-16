@@ -1,0 +1,38 @@
+{
+  "name": "@ppe/app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "vite build && cp -r src/locales dist/",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage && rm -rf coverage",
+    "deploy": "vercel deploy dist --team=turborepo --confirm",
+    "dev": "vite --host 0.0.0.0 --port 4001 --clearScreen false",
+    "lint": "tsc && TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch --passWithNoTests",
+    "coverage": "vitest run --coverage",
+    "extract-messages": "i18next-scanner --config=../../scripts/i18next-scanner.config.js"
+  },
+  "dependencies": {
+    "@ppe/authentication": "*",
+    "@ppe/common": "*",
+    "@ppe/data-provider": "*",
+    "@ppe/events-calendars": "*",
+    "@ppe/icons": "*",
+    "@ppe/networking": "*",
+    "@ppe/preferences": "*",
+    "@ppe/profiles": "*",
+    "@ppe/shifts": "*",
+    "@ppe/sites": "*",
+    "@ppe/teams": "*",
+    "@ppe/translation": "*",
+    "@ppe/ui": "*",
+    "react-helmet": "^6.1.0"
+  },
+  "devDependencies": {
+    "@ppe/eslint-config": "*",
+    "@ppe/tsconfig": "*",
+    "@types/react-helmet": "^6.1.5",
+    "vite-plugin-pwa": "^0.14.0"
+  }
+}

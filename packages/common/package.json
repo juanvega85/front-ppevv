@@ -1,0 +1,43 @@
+{
+  "name": "@ppe/common",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch --passWithNoTests",
+    "coverage": "vitest run --coverage",
+    "extract-messages": "i18next-scanner --config=../../scripts/i18next-scanner.config.js"
+  },
+  "devDependencies": {
+    "@types/react-google-recaptcha": "^2.1.5",
+    "@ppe/eslint-config": "*",
+    "@ppe/tsconfig": "*"
+  },
+  "dependencies": {
+    "@ppe/icons": "*",
+    "@ppe/networking": "*",
+    "@ppe/ui": "*",
+    "activity-detector": "^3.0.0",
+    "react-google-recaptcha": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@ppe/authentication": "*",
+    "@ppe/data-provider": "*",
+    "@ppe/translation": "*",
+    "react-router-dom": "^6.4.1"
+  }
+}

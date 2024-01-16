@@ -1,0 +1,53 @@
+name: Build, test and deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache modules
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+      - name: Use Node.js 18.8.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.8.x
+      - name: Install dependencies
+        run: yarn
+      - name: 'Create env file for app'
+        working-directory: apps/app
+        run: |
+          touch .env
+          echo VITE_APP_NAME="PPAM Chile" >> .env
+          echo VITE_API_URL=${{ secrets.API_URL_QA }} >> .env
+          echo VITE_RECAPTCHA_SITE_KEY=${{ secrets.RECAPTCHA_SITE_KEY }} >> .env
+          echo VITE_GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} >> .env
+          date=$(TZ=America/Santiago date "+%y.%m.%d %H:%M")
+          commit=$(git rev-parse --short "$GITHUB_SHA")
+          echo VITE_APP_VERSION=$commit $date >> .env
+          cat .env
+      - name: Build
+        run: yarn build
+      #- name: Lint
+      #  run: yarn lint
+      #- name: Run tests
+      #  run: yarn test
+      - name: Deploy APP
+        run: aws s3 sync apps/app/dist s3://${{ secrets.AWS_APP_BUCKET_ID_QA }}
+      - name: Clear cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_APP_CLOUDFRONT_ID_QA }} --paths "/*"

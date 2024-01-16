@@ -1,0 +1,33 @@
+{
+  "name": "@ppe/translation",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react && cat ./src/i18next.d.ts >> ./dist/index.d.ts",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch --passWithNoTests",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@ppe/eslint-config": "*",
+    "@ppe/tsconfig": "*",
+    "i18next-scanner": "^4.0.0"
+  },
+  "dependencies": {
+    "i18next": "^22.0.4",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.1.0",
+    "react-i18next": "^12.0.0"
+  }
+}
